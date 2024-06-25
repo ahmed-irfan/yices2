@@ -1876,6 +1876,10 @@ static int process_benchmark(char *filename) {
       }
       break;
 
+    case QF_S:
+      arch = CTX_ARCH_EGFUNSTR;
+      break;
+
     case QF_UF:
       /*
        * Egraph only

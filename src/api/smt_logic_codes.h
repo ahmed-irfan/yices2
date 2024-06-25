@@ -75,6 +75,7 @@ typedef enum smt_logic {
   NRA,         // non-linear real arithmetic
   NIRA,        // non-linear mixed arithmetic
   RDL,         // real difference logic
+  S,           // strings
   UF,          // uninterpreted functions
 
   //  Arrays + some other theory
@@ -126,6 +127,7 @@ typedef enum smt_logic {
   QF_NRA,      // non-linear real arithmetic
   QF_NIRA,     // non-linear mixed arithmetic
   QF_RDL,      // real difference logic
+  QF_S,        // strings
   QF_UF,       // uninterpreted functions
 
   //  Arrays + some other theory

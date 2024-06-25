@@ -62,6 +62,7 @@ static const char * const smt_logic_names[NUM_SMT_LOGIC_NAMES] = {
   "NIRA",
   "NONE",
   "NRA",
+  "S",
   "QF_ABV",
   "QF_ALIA",
   "QF_ALIRA",
@@ -90,6 +91,7 @@ static const char * const smt_logic_names[NUM_SMT_LOGIC_NAMES] = {
   "QF_NIRA",
   "QF_NRA",
   "QF_RDL",
+  "QF_S",
   "QF_UF",
   "QF_UFBV",
   "QF_UFBVLIA",
@@ -151,6 +153,7 @@ static const smt_logic_t smt_code[NUM_SMT_LOGIC_NAMES] = {
   NIRA,
   NONE,
   NRA,
+  S,
   QF_ABV,
   QF_ALIA,
   QF_ALIRA,
@@ -179,6 +182,7 @@ static const smt_logic_t smt_code[NUM_SMT_LOGIC_NAMES] = {
   QF_NIRA,
   QF_NRA,
   QF_RDL,
+  QF_S,
   QF_UF,
   QF_UFBV,
   QF_UFBVLIA,
@@ -298,6 +302,7 @@ static const uint8_t has_arrays[NUM_SMT_LOGICS] = {
   false,  // NRA
   false,  // NIRA
   false,  // RDL
+  false,  // S
   false,  // UF
   true,   // ABV
   true,   // ALIA
@@ -338,6 +343,7 @@ static const uint8_t has_arrays[NUM_SMT_LOGICS] = {
   false,  // QF_NRA
   false,  // QF_NIRA
   false,  // QF_RDL
+  false,  // QF_S
   false,  // QF_UF
   true,   // QF_ABV
   true,   // QF_ALIA
@@ -384,6 +390,7 @@ static const uint8_t has_bv[NUM_SMT_LOGICS] = {
   false,  // NRA
   false,  // NIRA
   false,  // RDL
+  false,  // S
   false,  // UF
   true,   // ABV
   false,  // ALIA
@@ -424,6 +431,7 @@ static const uint8_t has_bv[NUM_SMT_LOGICS] = {
   false,  // QF_NRA
   false,  // QF_NIRA
   false,  // QF_RDL
+  false,  // QF_S
   false,  // QF_UF
   true,   // QF_ABV
   false,  // QF_ALIA
@@ -470,6 +478,7 @@ static const uint8_t has_quantifiers[NUM_SMT_LOGICS] = {
   true,   // NRA
   true,   // NIRA
   true,   // RDL
+  true,   // S
   true,   // UF
   true,   // ABV
   true,   // ALIA
@@ -510,6 +519,7 @@ static const uint8_t has_quantifiers[NUM_SMT_LOGICS] = {
   false,  // QF_NRA
   false,  // QF_NIRA
   false,  // QF_RDL
+  false,  // QF_S
   false,  // QF_UF
   false,  // QF_ABV
   false,  // QF_ALIA
@@ -556,6 +566,7 @@ static const uint8_t has_uf[NUM_SMT_LOGICS] = {
   false,  // NRA
   false,  // NIRA
   false,  // RDL
+  false,  // S 
   true,   // UF
   false,  // ABV
   false,  // ALIA
@@ -596,6 +607,7 @@ static const uint8_t has_uf[NUM_SMT_LOGICS] = {
   false,  // QF_NRA
   false,  // QF_NIRA
   false,  // QF_RDL
+  false,  // QF_S
   true,   // QF_UF
   false,  // QF_ABV
   false,  // QF_ALIA
@@ -642,6 +654,7 @@ static const uint8_t arith_frag[NUM_SMT_LOGICS] = {
   ARITH_NRA,    // NRA
   ARITH_NIRA,   // NIRA
   ARITH_RDL,    // RDL
+  ARITH_NONE,   // S
   ARITH_NONE,   // UF
   ARITH_NONE,   // ABV
   ARITH_LIA,    // ALIA
@@ -682,6 +695,7 @@ static const uint8_t arith_frag[NUM_SMT_LOGICS] = {
   ARITH_NRA,    // QF_NRA
   ARITH_NIRA,   // QF_NIRA
   ARITH_RDL,    // QF_RDL
+  ARITH_NONE,   // QF_S
   ARITH_NONE,   // QF_UF
   ARITH_NONE,   // QF_ABV
   ARITH_LIA,    // QF_ALIA
@@ -769,6 +783,7 @@ static const smt_logic_t logic2qf[NUM_SMT_LOGICS] = {
   QF_NRA,
   QF_NIRA,
   QF_RDL,
+  QF_S,
   QF_UF,
   QF_ABV,
   QF_ALIA,
@@ -812,6 +827,7 @@ static const smt_logic_t logic2qf[NUM_SMT_LOGICS] = {
   QF_NRA,
   QF_NIRA,
   QF_RDL,
+  QF_S,
   QF_UF,
   QF_ABV,
   QF_ALIA,
@@ -871,6 +887,7 @@ static const bool is_official[NUM_SMT_LOGICS] = {
   true,   // NRA
   false,  // NIRA
   false,  // RDL
+  true,   // S
   true,   // UF
   true,   // ABV
   true,   // ALIA
@@ -911,6 +928,7 @@ static const bool is_official[NUM_SMT_LOGICS] = {
   true,   // QF_NRA
   true,   // QF_NIRA
   true,   // QF_RDL
+  true,   // QF_S
   true,   // QF_UF
   true,   // QF_ABV
   true,   // QF_ALIA

@@ -4956,6 +4956,7 @@ static const uint32_t arch2theories[NUM_ARCH] = {
   UF_MASK|ARITH_MASK|FUN_MASK, //  CTX_ARCH_EGFUNSPLX
   UF_MASK|BV_MASK|FUN_MASK,    //  CTX_ARCH_EGFUNBV
   UF_MASK|BV_MASK|ARITH_MASK,  //  CTX_ARCH_EGSPLXBV
+  UF_MASK|FUN_MASK|STR_MASK,   //  CTX_ARCH_EGFUNSTR
   ALLTH_MASK,                  //  CTX_ARCH_EGFUNSPLXBV
 
   IDL_MASK,                    //  CTX_ARCH_AUTO_IDL
@@ -4972,13 +4973,14 @@ static const uint32_t arch2theories[NUM_ARCH] = {
  * For the AUTO_xxx architecture, nothing is required initially,
  * so the bitmask is 0.
  */
-#define EGRPH  0x1
-#define SPLX   0x2
-#define IFW    0x4
-#define RFW    0x8
-#define BVSLVR 0x10
-#define FSLVR  0x20
-#define MCSAT  0x40
+#define EGRPH   0x1
+#define SPLX    0x2
+#define IFW     0x4
+#define RFW     0x8
+#define BVSLVR  0x10
+#define FSLVR   0x20
+#define STRSLVR 0x40
+#define MCSAT   0x80
 
 static const uint8_t arch_components[NUM_ARCH] = {
   0,                        //  CTX_ARCH_NOSOLVERS
@@ -4994,6 +4996,7 @@ static const uint8_t arch_components[NUM_ARCH] = {
   EGRPH|SPLX|FSLVR,         //  CTX_ARCH_EGFUNSPLX
   EGRPH|BVSLVR|FSLVR,       //  CTX_ARCH_EGFUNBV
   EGRPH|SPLX|BVSLVR,        //  CTX_ARCH_EGSPLXBV
+  EGRPH|FSLVR|STRSLVR,      //  CTX_ARCH_EGFUNSTR
   EGRPH|SPLX|BVSLVR|FSLVR,  //  CTX_ARCH_EGFUNSPLXBV
 
   0,                        //  CTX_ARCH_AUTO_IDL

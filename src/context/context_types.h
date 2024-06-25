@@ -185,6 +185,7 @@ typedef enum {
   CTX_ARCH_EGFUNSPLX,    // egraph+fun+simplex
   CTX_ARCH_EGFUNBV,      // egraph+fun+bitvector
   CTX_ARCH_EGSPLXBV,     // egraph+simplex+bitvector
+  CTX_ARCH_EGFUNSTR,      // egraph+fun+strings
   CTX_ARCH_EGFUNSPLXBV,  // all solvers (should be the default)
 
   CTX_ARCH_AUTO_IDL,     // either simplex or integer floyd-warshall
@@ -213,7 +214,8 @@ typedef enum {
 #define NLIRA_MASK     0x80     // non-linear arithmetic
 #define FUN_UPDT_MASK  0x100
 #define FUN_EXT_MASK   0x200
-#define QUANT_MASK     0x400
+#define STR_MASK       0x400
+#define QUANT_MASK     0x800
 
 // arith means all variants of linear arithmetic are supported
 #define ARITH_MASK (LIRA_MASK|LRA_MASK|LIA_MASK|RDL_MASK|IDL_MASK)
@@ -225,7 +227,7 @@ typedef enum {
 #define FUN_MASK   (FUN_UPDT_MASK|FUN_EXT_MASK)
 
 // all theories, except non-linear arithmetic
-#define ALLTH_MASK (UF_MASK|BV_MASK|ARITH_MASK|FUN_MASK)
+#define ALLTH_MASK (UF_MASK|BV_MASK|ARITH_MASK|FUN_MASK|STR_MASK)
 
 
 

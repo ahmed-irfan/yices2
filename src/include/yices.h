@@ -2831,6 +2831,7 @@ __YICES_DLLSPEC__ extern int32_t yices_set_config(ctx_config_t *config, const ch
  *   QF_LIA:      linear integer arithmetic
  *   QF_LRA:      linear real arithmetic
  *   QF_LIRA:     mixed linear arithmetic
+ *   QF_S:        strings
  *   QF_UF:       uninterpreted functions
  *
  *   QF_ABV:      arrays and bitvectors
