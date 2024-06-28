@@ -229,6 +229,7 @@ extern bool logic_has_arrays(smt_logic_t code);
 extern bool logic_has_arith(smt_logic_t code);
 extern bool logic_has_bv(smt_logic_t code);
 extern bool logic_has_quantifiers(smt_logic_t code);
+extern bool logic_has_string(smt_logic_t code);
 extern bool logic_has_uf(smt_logic_t code);
 
 

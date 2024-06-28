@@ -1746,6 +1746,7 @@ static const uint8_t smt2_key[NUM_SMT2_SYMBOLS] = {
   SMT2_KEY_TERM_OP,      // SMT2_SYM_BVSLE
   SMT2_KEY_TERM_OP,      // SMT2_SYM_BVSGT
   SMT2_KEY_TERM_OP,      // SMT2_SYM_BVSGE
+  SMT2_KEY_TYPE,         // SMT2_SYM_STRING
   SMT2_KEY_ERROR_BV,     // SMT2_SYM_INVALID_BV_CONSTANT
   SMT2_KEY_UNKNOWN,      // SMT2_SYM_UNKNOWN
 };
@@ -1821,6 +1822,7 @@ static const int32_t smt2_val[NUM_SMT2_SYMBOLS] = {
   MK_BV_SLE,             // SMT2_SYM_BVSLE
   MK_BV_SGT,             // SMT2_SYM_BVSGT
   MK_BV_SGE,             // SMT2_SYM_BVSGE
+  string_id,             // SMT2_SYM_STRING
   NO_OP,                 // SMT2_SYM_INVALID_BV_CONSTANT (ignored)
   NO_OP,                 // SMT2_SYM_UNKNOWN (ignored)
 };

@@ -208,6 +208,7 @@ static const char * const smt2_symbol_string[NUM_SMT2_SYMBOLS] = {
   "bvsle",                   // SMT2_SYM_BVSLE
   "bvsgt",                   // SMT2_SYM_BVSGT
   "bvsge",                   // SMT2_SYM_BVSGE
+  "String",                  // SMT2_SYM_STRING
 
   // errors
   "<invalid-bv-constant>",   // SMT2_SYM_INVALID_BV_CONSTANT,
@@ -349,6 +350,12 @@ static void smt2_activate_mixed_arith(void) {
   active_symbol[SMT2_SYM_IS_INT] = true;
 }
 
+/*
+ * All symbols in Strings
+ */
+static void smt2_activate_string(void) {
+  active_symbol[SMT2_SYM_STRING] = true;
+}
 
 /*
  * All bitvector symbols + the bv-constant token
@@ -406,6 +413,10 @@ void smt2_lexer_activate_logic(smt_logic_t logic) {
   if (logic_has_bv(logic)) {
     smt2_activate_bv();
   }
+  if (logic_has_string(logic)) {
+    smt2_activate_string();
+  }
+
   switch (arith_fragment(logic)) {
   case ARITH_IDL:
     smt2_activate_idl();

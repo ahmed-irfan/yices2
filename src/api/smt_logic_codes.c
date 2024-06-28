@@ -62,7 +62,6 @@ static const char * const smt_logic_names[NUM_SMT_LOGIC_NAMES] = {
   "NIRA",
   "NONE",
   "NRA",
-  "S",
   "QF_ABV",
   "QF_ALIA",
   "QF_ALIRA",
@@ -104,6 +103,7 @@ static const char * const smt_logic_names[NUM_SMT_LOGIC_NAMES] = {
   "QF_UFNRA",
   "QF_UFRDL",
   "RDL",
+  "S",
   "UF",
   "UFBV",
   "UFBVLIA",
@@ -153,7 +153,6 @@ static const smt_logic_t smt_code[NUM_SMT_LOGIC_NAMES] = {
   NIRA,
   NONE,
   NRA,
-  S,
   QF_ABV,
   QF_ALIA,
   QF_ALIRA,
@@ -195,6 +194,7 @@ static const smt_logic_t smt_code[NUM_SMT_LOGIC_NAMES] = {
   QF_UFNRA,
   QF_UFRDL,
   RDL,
+  S,
   UF,
   UFBV,
   UFBVLIA,
@@ -553,6 +553,94 @@ static const uint8_t has_quantifiers[NUM_SMT_LOGICS] = {
   false,   // SMT_ALL: QF_AUFLIRA + QF_BV
 };
 
+static const uint8_t has_string[NUM_SMT_LOGICS] = {
+  false,  // NONE
+
+  false,  // AX
+  false,  // BV
+  false,  // IDL
+  false,  // LIA
+  false,  // LRA
+  false,  // LIRA
+  false,  // NIA
+  false,  // NRA
+  false,  // NIRA
+  false,  // RDL
+  true,   // S 
+  false,  // UF
+  false,  // ABV
+  false,  // ALIA
+  false,  // ALRA
+  false,  // ALIRA
+  false,  // ANIA
+  false,  // ANRA
+  false,  // ANIRA
+  false,  // AUF
+  false,  // BVLRA
+  false,  // UFBV
+  false,  // UFBVLIA
+  false,  // UFIDL
+  false,  // UFLIA
+  false,  // UFLRA
+  false,  // UFLIRA
+  false,  // UFNIA
+  false,  // UFNRA
+  false,  // UFNIRA
+  false,  // UFRDL
+  false,  // AUFBV
+  false,  // AUFBVLIA
+  false,  // AUFBVNIA
+  false,  // AUFLIA
+  false,  // AUFLRA
+  false,  // AUFLIRA
+  false,  // AUFNIA
+  false,  // AUFNRA
+  false,  // AUFNIRA
+
+  false,  // QF_AX
+  false,  // QF_BV
+  false,  // QF_IDL
+  false,  // QF_LIA
+  false,  // QF_LRA
+  false,  // QF_LIRA
+  false,  // QF_NIA
+  false,  // QF_NRA
+  false,  // QF_NIRA
+  false,  // QF_RDL
+  true,   // QF_S
+  false,  // QF_UF
+  false,  // QF_ABV
+  false,  // QF_ALIA
+  false,  // QF_ALRA
+  false,  // QF_ALIRA
+  false,  // QF_ANIA
+  false,  // QF_ANRA
+  false,  // QF_ANIRA
+  false,  // QF_AUF
+  false,  // QF_BVLRA
+  false,  // QF_UFBV
+  false,  // QF_UFBVLIA
+  false,  // QF_UFIDL
+  false,  // QF_UFLIA
+  false,  // QF_UFLRA
+  false,  // QF_UFLIRA
+  false,  // QF_UFNIA
+  false,  // QF_UFNRA
+  false,  // QF_UFNIRA
+  false,  // QF_UFRDL
+  false,  // QF_AUFBV
+  false,  // QF_AUFBVLIA
+  false,  // QF_AUFBVNIA
+  false,  // QF_AUFLIA
+  false,  // QF_AUFLRA
+  false,  // QF_AUFLIRA
+  false,  // QF_AUFNIA
+  false,  // QF_AUFNRA
+  false,  // QF_AUFNIRA
+
+  false,  // SMT_ALL: QF_AUFLIRA + QF_BV
+};
+
 static const uint8_t has_uf[NUM_SMT_LOGICS] = {
   false,  // NONE
 
@@ -751,6 +839,11 @@ bool logic_has_bv(smt_logic_t code) {
 bool logic_has_quantifiers(smt_logic_t code) {
   assert(code != SMT_UNKNOWN);
   return has_quantifiers[code];
+}
+
+bool logic_has_string(smt_logic_t code) {
+  assert(code != SMT_UNKNOWN);
+  return has_string[code];
 }
 
 bool logic_has_uf(smt_logic_t code) {

@@ -75,3 +75,4 @@ bvslt,                        SMT2_SYM_BVSLT
 bvsle,                        SMT2_SYM_BVSLE
 bvsgt,                        SMT2_SYM_BVSGT
 bvsge,                        SMT2_SYM_BVSGE
+String,                       SMT2_SYM_STRING

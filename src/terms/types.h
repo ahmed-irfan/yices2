@@ -95,6 +95,7 @@ typedef enum {
   BOOL_TYPE,
   INT_TYPE,
   REAL_TYPE,
+  STRING_TYPE,
   BITVECTOR_TYPE,
   SCALAR_TYPE,
   UNINTERPRETED_TYPE,
@@ -113,6 +114,7 @@ enum {
   bool_id = 0,
   int_id = 1,
   real_id = 2,
+  string_id = 3,
 };
 
 
@@ -483,6 +485,11 @@ static inline type_t real_type(type_table_t *table) {
   return real_id;
 }
 
+static inline type_t string_type(type_table_t *table) {
+  assert(type_kind(table, string_id) == STRING_TYPE);
+  return string_id;
+}
+
 /*
  * Bitvector types
  * This requires 0 < size <= YICES_MAX_BVSIZE
@@ -740,7 +747,7 @@ static inline uint32_t type_macro_arity(type_mtbl_t *table, int32_t id) {
  */
 
 /*
- * Checks for arithmetic or boolean types.
+ * Checks for arithmetic, string or boolean types.
  */
 static inline bool is_boolean_type(type_t i) {
   return i == bool_id;
@@ -758,6 +765,9 @@ static inline bool is_arithmetic_type(type_t i) {
   return i == int_id || i == real_id;
 }
 
+static inline bool is_string_type(type_t i) {
+  return i == string_id;
+}
 
 /*
  * Extract components from the table
@@ -1133,7 +1143,7 @@ extern type_t apply_type_matching(type_matcher_t *matcher, type_t tau);
  * - type_table_gc marks every type reachable from a set of
  *   root types, then deletes every type that's not marked.
  * The root types include:
- * - the three predefined types: bool, int, and real
+ * - the four predefined types: bool, int, real and string
  * - all types that are explicitly marked as roots (using call to set_gc_mark).
  * - if flag keep_named is true, every type that's present in the symbol table
  * At the end of type_table_gc, all marks are cleared.

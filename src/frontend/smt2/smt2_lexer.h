@@ -254,6 +254,9 @@ enum smt2_symbol {
   SMT2_SYM_BVSGT,
   SMT2_SYM_BVSGE,
 
+  // String
+  SMT2_SYM_STRING,
+
   // Errors
   SMT2_SYM_INVALID_BV_CONSTANT,
 
