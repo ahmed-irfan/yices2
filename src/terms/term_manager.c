@@ -4198,6 +4198,16 @@ term_t mk_lambda(term_manager_t *manager, uint32_t n, const term_t var[], term_t
 
 
 /*************************
+ *   STRING CONSTANTS    *
+ ************************/
+
+term_t mk_string_constant(term_manager_t *manager, const char *s) {
+  assert(s != NULL);
+
+  return string_constant(manager->terms, s);
+}
+
+/*************************
  *  BITVECTOR CONSTANTS  *
  ************************/
 

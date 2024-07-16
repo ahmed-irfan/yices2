@@ -570,6 +570,7 @@ static const char * const tag2string[NUM_TERM_KINDS] = {
   "reserved",
   "constant",
   "arith-const",
+  "string-const",
   "bv64-const",
   "bv-const",
   "variable",
@@ -1814,6 +1815,7 @@ static const pp_open_type_t term_kind2block[NUM_TERM_KINDS] = {
 
   0,                 //  CONSTANT_TERM
   0,                 //  ARITH_CONSTANT
+  0,                 //  STRING_CONSTANT
   0,                 //  BV64_CONSTANT
   0,                 //  BV_CONSTANT
 

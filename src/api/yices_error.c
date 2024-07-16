@@ -46,6 +46,7 @@ static const char* const term_kind2string[NUM_TERM_KINDS] = {
 
   "uninterpreted or Boolean constant",  // CONSTANT_TERM
   "rational constant",                  // ARITH_CONSTANT
+  "string constant",                    // STRING_CONSTANT
   "bitvector constant",                 // BV64_CONSTANT
   "bitvector constant",                 // BV_CONSTANT
   "variable",                           // VARIABLE

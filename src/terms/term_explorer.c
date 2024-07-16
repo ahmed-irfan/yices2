@@ -30,6 +30,7 @@ static const uint8_t atomic_term_flag[NUM_TERM_KINDS] = {
   false, // RESERVED_TERM
   true,  // CONSTANT_TERM
   true,  // ARITH_CONSTANT
+  true,  // STRING_CONSTANT
   true,  // BV64_CONSTANT
   true,  // BV_CONSTANT
   true,  // VARIABLE
@@ -82,6 +83,7 @@ static const uint8_t composite_term_flag[NUM_TERM_KINDS] = {
   false, // RESERVED_TERM
   false, // CONSTANT_TERM
   false, // ARITH_CONSTANT
+  false, // STRING_CONSTANT
   false, // BV64_CONSTANT
   false, // BV_CONSTANT
   false, // VARIABLE
@@ -135,6 +137,7 @@ static const term_constructor_t constructor_term_table[NUM_TERM_KINDS] = {
   YICES_CONSTRUCTOR_ERROR,  // RESERVED_TERM
   YICES_SCALAR_CONSTANT,    // CONSTANT_TERM
   YICES_ARITH_CONSTANT,     // ARITH_CONSTANT
+  YICES_STRING_CONSTANT,    // STRING_CONSTANT
   YICES_BV_CONSTANT,        // BV64_CONSTANT
   YICES_BV_CONSTANT,        // BV_CONSTANT
   YICES_VARIABLE,           // VARIABLE
@@ -304,6 +307,7 @@ uint32_t term_num_children(term_table_t *table, term_t t) {
       assert(false);    // fall through to prevent compile-time warning
     case CONSTANT_TERM:
     case ARITH_CONSTANT:
+    case STRING_CONSTANT:
     case BV64_CONSTANT:
     case BV_CONSTANT:
     case VARIABLE:

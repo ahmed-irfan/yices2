@@ -428,6 +428,22 @@ static bvconst64_term_t *new_bvconst64_term(uint32_t bitsize, uint64_t v) {
 }
 
 
+/*
+ * String constant
+ */
+static string_const_term_t *new_string_const_term(const char *s) {
+  string_const_term_t *d;
+
+  assert(s != NULL);
+
+  d = (string_const_term_t *) safe_malloc(sizeof(string_const_term_t));
+  d->length = strlen(s);
+  d->data = (char *) safe_malloc(strlen(s) + 1);
+  strcpy(d->data, s);
+
+  return d;
+}
+
 
 /*
  * Special term:
@@ -573,6 +589,13 @@ static inline uint32_t hash_bvconst64_term(uint32_t bitsize, uint64_t v) {
   return jenkins_hash_mix3((uint32_t)(v >> 32), (uint32_t) v, 0xdeadbeef + bitsize);
 }
 
+
+/*
+ * String constants
+ */
+static inline uint32_t hash_string_term(const char *s) {
+  return jenkins_hash_string(s);
+}
 
 
 /*
@@ -834,6 +857,17 @@ typedef struct {
 } bvconst64_term_hobj_t;
 
 
+/*
+ * String constants
+ */
+typedef struct {
+  int_hobj_t m;
+  term_table_t *tbl;
+  term_kind_t tag;
+  type_t tau;
+  char *s;
+} string_term_hobj_t;
+
 
 /*
  * Hash functions for these objects
@@ -904,6 +938,10 @@ static uint32_t hash_bvconst_hobj(bvconst_term_hobj_t *o) {
 
 static uint32_t hash_bvconst64_hobj(bvconst64_term_hobj_t *o) {
   return hash_bvconst64_term(o->bitsize, o->v);
+}
+
+static uint32_t hash_string_hobj(string_term_hobj_t *o) {
+  return hash_string_term(o->s);
 }
 
 
@@ -1117,6 +1155,18 @@ static bool eq_bvconst64_hobj(bvconst64_term_hobj_t *o, int32_t i) {
   return d->bitsize == o->bitsize && d->value == o->v;
 }
 
+static bool eq_string_hobj(string_term_hobj_t *o, int32_t i) {
+  term_table_t *table;
+  string_const_term_t *s;
+
+  table = o->tbl;
+
+  if (kind_for_idx(table, i) != STRING_CONSTANT) return false;
+
+  s = string_const_for_idx(table, i);
+  return strlen(o->s) == s->length && strcmp(s->data, o->s) == 0;
+}
+
 
 /*
  * Build functions: add a new term to o->tbl and return its index
@@ -1236,6 +1286,13 @@ static int32_t build_bvconst64_hobj(bvconst64_term_hobj_t *o) {
 
   c = new_bvconst64_term(o->bitsize, o->v);
   return new_ptr_term(o->tbl, BV64_CONSTANT, o->tau, c);
+}
+
+static int32_t build_string_const_hobj(string_term_hobj_t *o) {
+  string_const_term_t *c;
+
+  c = new_string_const_term(o->s);
+  return new_ptr_term(o->tbl, STRING_CONSTANT, o->tau, c);
 }
 
 
@@ -2436,6 +2493,30 @@ term_t arith_constant(term_table_t *table, rational_t *a) {
   return pos_term(i);
 }
 
+
+/*
+ * String constant
+ */
+term_t string_constant(term_table_t *table, const char *s) {
+  type_t tau;
+  int32_t i;
+  string_term_hobj_t string_hobj;
+
+  tau = string_type(table->types);
+
+  string_hobj.m.hash = (hobj_hash_t) hash_string_hobj;
+  string_hobj.m.eq = (hobj_eq_t) eq_string_hobj;
+  string_hobj.m.build = (hobj_build_t) build_string_const_hobj;
+  string_hobj.tbl = table;
+  string_hobj.tag = STRING_CONSTANT;
+  string_hobj.tau = tau;
+  string_hobj.s = safe_malloc(sizeof(s) + 1);
+  strcpy(string_hobj.s, s);
+
+  i = int_htbl_get_obj(&table->htbl, &string_hobj.m);
+
+  return pos_term(i);
+}
 
 /*
  * Atom t == 0 for an arithmetic term t

@@ -2194,6 +2194,7 @@ void flatten_assertion(context_t *ctx, term_t f) {
         goto abort;
 
       case ARITH_CONSTANT:
+      case STRING_CONSTANT:
       case BV64_CONSTANT:
       case BV_CONSTANT:
       case ARITH_FLOOR:

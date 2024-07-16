@@ -247,6 +247,7 @@ typedef enum {
    */
   CONSTANT_TERM,    // constant of uninterpreted/scalar/boolean types
   ARITH_CONSTANT,   // rational constant
+  STRING_CONSTANT,  // string constant
   BV64_CONSTANT,    // compact bitvector constant (64 bits at most)
   BV_CONSTANT,      // generic bitvector constant (more than 64 bits)
 
@@ -389,6 +390,15 @@ typedef struct root_atom_s {
   term_t p;
   root_atom_rel_t r;
 } root_atom_t;
+
+
+/*
+ * String constant term
+ */
+typedef struct string_const_term_s {
+  uint32_t length; // string length
+  char *data; // actual string
+} string_const_term_t;
 
 
 /*
@@ -730,6 +740,12 @@ extern term_t arith_divides(term_table_t *table, term_t x, term_t y);
 extern bool arith_poly_is_integer(const term_table_t *table, rba_buffer_t *b);
 
 
+
+/*
+ * STRING TERMS
+ */
+
+extern term_t string_constant(term_table_t *table, const char *s);
 
 /*
  * BITVECTOR TERMS
@@ -1212,6 +1228,10 @@ static inline bvconst64_term_t *bvconst64_for_idx(const term_table_t *table, int
 
 static inline bvconst_term_t *bvconst_for_idx(const term_table_t *table, int32_t i) {
   return (bvconst_term_t *) ptr_for_idx(table, i);
+}
+
+static inline string_const_term_t *string_const_for_idx(const term_table_t *table, int32_t i) {
+  return (string_const_term_t *) ptr_for_idx(table, i);
 }
 
 static inline bvpoly64_t *bvpoly64_for_idx(const term_table_t *table, int32_t i) {

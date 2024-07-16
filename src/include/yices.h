@@ -336,11 +336,12 @@ __YICES_DLLSPEC__ extern void yices_reset_type_vector(type_vector_t *v);
  */
 
 /*
- * Built-in types bool, int, real.
+ * Built-in types bool, int, real, string.
  */
 __YICES_DLLSPEC__ extern type_t yices_bool_type(void);
 __YICES_DLLSPEC__ extern type_t yices_int_type(void);
 __YICES_DLLSPEC__ extern type_t yices_real_type(void);
+__YICES_DLLSPEC__ extern type_t yices_string_type(void);
 
 
 /*
@@ -1362,6 +1363,19 @@ __YICES_DLLSPEC__ extern term_t yices_arith_geq0_atom(term_t t);  // t >= 0
 __YICES_DLLSPEC__ extern term_t yices_arith_leq0_atom(term_t t);  // t <= 0
 __YICES_DLLSPEC__ extern term_t yices_arith_gt0_atom(term_t t);   // t > 0
 __YICES_DLLSPEC__ extern term_t yices_arith_lt0_atom(term_t t);   // t < 0
+
+
+
+
+/*********************************
+ *    STRING TERM CONSTRUCTORS   *
+ ********************************/
+
+/*
+ * STRING CONSTANTS
+ */
+
+__YICES_DLLSPEC__ extern term_t yices_string_constant(const char *s);
 
 
 

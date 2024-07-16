@@ -176,6 +176,7 @@ static void sharing_map_visit_subterms(sharing_map_t *map, int32_t i) {
   switch (kind_for_idx(map->terms, i)) {
   case CONSTANT_TERM:
   case ARITH_CONSTANT:
+  case STRING_CONSTANT:
   case BV64_CONSTANT:
   case BV_CONSTANT:
   case VARIABLE:

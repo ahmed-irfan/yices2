@@ -49,6 +49,8 @@ extern type_t _o_yices_int_type(void);
 
 extern type_t _o_yices_real_type(void);
 
+extern type_t _o_yices_string_type(void);
+
 extern type_t _o_yices_bv_type(uint32_t size);
 
 extern type_t _o_yices_new_uninterpreted_type(void);
@@ -218,6 +220,13 @@ extern term_t _o_yices_arith_leq0_atom(term_t t);
 extern term_t _o_yices_arith_gt0_atom(term_t t);
 
 extern term_t _o_yices_arith_lt0_atom(term_t t);
+
+
+/**************************
+ *    STRING CONSTANTS    *
+ *************************/
+
+extern term_t _o_yices_string_constant(const char *s);
 
 
 /**************************

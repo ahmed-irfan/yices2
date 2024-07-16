@@ -1452,7 +1452,8 @@ term_t get_term(tstack_t *stack, stack_elem_t *e) {
     break;
 
   case TAG_STRING:
-    raise_exception(stack, e, TSTACK_STRINGS_ARE_NOT_TERMS);
+    t = yices_string_constant(e->val.string);
+    //raise_exception(stack, e, TSTACK_STRINGS_ARE_NOT_TERMS);
     break;
 
   case TAG_BV64:

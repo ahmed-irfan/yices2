@@ -580,6 +580,40 @@ static smt2_token_t smt2_read_string(lexer_t *lex) {
   return tk;
 }
 
+static smt2_token_t smt2_read_string_const(lexer_t *lex) {
+  reader_t *rd;
+  string_buffer_t *buffer;
+  int c;
+  smt2_token_t tk;
+
+  rd = &lex->reader;
+  buffer = lex->buffer;
+  assert(reader_current_char(rd) == '"');
+
+  for (;;) {
+    c = reader_next_char(rd);
+    if (c == '"') {
+      // consume the closing quote
+      reader_next_char(rd);
+      tk = SMT2_TK_STRING;
+      break;
+    }
+
+    if (c == '\\') {
+      c = reader_next_char(rd);
+      if (c != '"' && c != '\\') {
+        // keep the backslash
+        string_buffer_append_char(buffer, '\\');
+      }
+    }
+    string_buffer_append_char(buffer, c);
+  }
+
+  string_buffer_close(buffer);
+
+  return tk;
+}
+
 
 /*
  * String literal for SMT-LIB 2.5

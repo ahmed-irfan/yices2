@@ -2906,6 +2906,7 @@ static bool needs_egraph(int_hset_t *seen, term_t t) {
       break;
 
     case ARITH_CONSTANT:
+    case STRING_CONSTANT:
     case BV64_CONSTANT:
     case BV_CONSTANT:
       result = false;

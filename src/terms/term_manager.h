@@ -460,6 +460,16 @@ extern term_t mk_arith_rdiv(term_manager_t *manager, term_t t1, term_t t2);
 
 
 /*
+ * STRING TERMS AND ATOMS
+ */
+
+/*
+ * STRING constant
+ */
+extern term_t mk_string_constant(term_manager_t *manager, const char *s);
+
+
+/*
  * BITVECTOR TERMS AND ATOMS
  */
 

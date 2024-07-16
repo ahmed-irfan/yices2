@@ -1241,6 +1241,7 @@ static void collect_constants(sym_breaker_t *breaker, term_t t, term_t *c, uint3
       break;
 
     case ARITH_CONSTANT:
+    case STRING_CONSTANT:
     case BV64_CONSTANT:
     case BV_CONSTANT:
     case VARIABLE:

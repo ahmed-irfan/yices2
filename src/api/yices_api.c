@@ -2829,6 +2829,14 @@ type_t _o_yices_real_type(void) {
   return real_type(__yices_globals.types);
 }
 
+EXPORTED type_t yices_string_type(void) {
+  MT_PROTECT(type_t, __yices_globals.lock, _o_yices_string_type());
+}
+
+type_t _o_yices_string_type(void) {
+  return string_type(__yices_globals.types);
+}
+
 EXPORTED type_t yices_bv_type(uint32_t size) {
   MT_PROTECT(type_t, __yices_globals.lock, _o_yices_bv_type(size));
 }
@@ -4454,6 +4462,19 @@ term_t _o_yices_arith_lt0_atom(term_t t) {
   return mk_arith_term_lt0(__yices_globals.manager, t);
 }
 
+
+
+/**************************
+ *   STRING CONSTANTS     *
+ *************************/
+
+EXPORTED term_t yices_string_constant(const char *s) {
+  MT_PROTECT(term_t,  __yices_globals.lock, _o_yices_string_constant(s));
+}
+
+term_t _o_yices_string_constant(const char *s) {
+  return mk_string_constant(__yices_globals.manager, s);
+}
 
 
 /**************************
