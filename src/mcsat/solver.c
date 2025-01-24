@@ -659,7 +659,7 @@ void mcsat_add_top_decision(mcsat_solver_t* mcsat, variable_t x) {
 
 static inline
 void mcsat_add_decision_hint(mcsat_solver_t* mcsat, variable_t x) {
-  int_queue_push(&mcsat->hinted_decision_vars, x);
+  //int_queue_push(&mcsat->hinted_decision_vars, x);
 }
 
 static inline

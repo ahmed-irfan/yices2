@@ -812,14 +812,14 @@ void nra_plugin_process_unit_constraint(nra_plugin_t* nra, trail_token_t* prop, 
           if (ctx_trace_enabled(nra->ctx, "nra::propagate")) {
             ctx_trace_printf(nra->ctx, "nra: hinting variable = %d\n", x);
           }
-          nra->ctx->hint_next_decision(nra->ctx, x);
+          //nra->ctx->hint_next_decision(nra->ctx, x);
           if (trail_is_at_base_level(nra->ctx->trail)) {
-            nra->ctx->hint_value(nra->ctx, x, &value);
+            //nra->ctx->hint_value(nra->ctx, x, &value);
           }
         }
         mcsat_value_destruct(&value);
 
-      } else if (!lp_feasibility_set_is_full(feasible_set)) {
+      } else if (false && !lp_feasibility_set_is_full(feasible_set)) {
         lp_interval_t x_interval;
         lp_interval_construct_full(&x_interval); // [-inf, +inf]
         // now we over-approx the feasible set using an interval and
@@ -2130,9 +2130,9 @@ void nra_plugin_learn(plugin_t* plugin, trail_token_t* prop) {
           if (ctx_trace_enabled(nra->ctx, "nra::learn")) {
             ctx_trace_printf(nra->ctx, "nra: hinting variable = %d\n", constraint_var);
           }
-          nra->ctx->hint_next_decision(nra->ctx, constraint_var);
+          //nra->ctx->hint_next_decision(nra->ctx, constraint_var);
           // update the trail value cache
-          nra->ctx->hint_value(nra->ctx, constraint_var, constraint_value);
+          //nra->ctx->hint_value(nra->ctx, constraint_var, constraint_value);
         }
       }
     }
