@@ -2772,7 +2772,7 @@ void mcsat_solve(mcsat_solver_t* mcsat, const param_t *params, model_t* mdl, uin
       luby_next(&luby);
       mcsat_request_restart(mcsat);
 
-    } else if ((*mcsat->solver_stats.conflicts) > recache_limit) {
+    } else if (false && (*mcsat->solver_stats.conflicts) > recache_limit) {
       // recache
       ++recache_round;
       mcsat_request_recache(mcsat);
