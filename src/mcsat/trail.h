@@ -165,8 +165,7 @@ bool trail_has_value(const mcsat_trail_t* trail, variable_t var) {
 /** Returns true if the variable has a cached value other than NONE */
 static inline
 bool trail_has_cached_value(const mcsat_trail_t* trail, variable_t var) {
-  assert(var < trail->model.size);
-  return mcsat_model_get_value(&trail->model, var)->type != VALUE_NONE;
+  return false;
 }
 
 /** Returns true if the value of var is other than NONE at base level */
