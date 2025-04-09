@@ -240,20 +240,6 @@ void var_queue_rescale_activities(var_queue_t *queue) {
 
 /** Increase activity of variable x (factor times). */
 void var_queue_bump_variable(var_queue_t *heap, variable_t x, uint32_t factor) {
-  int32_t i;
-
-  assert(factor > 0);
-  assert(x < heap->size);
-
-  if ((heap->activity[x] += factor * heap->act_increment) > VAR_ACTIVITY_THRESHOLD) {
-    var_queue_rescale_activities(heap);
-  }
-
-  // move x up if it's in the heap
-  i = heap->heap_index[x];
-  if (i >= 0) {
-    var_queue_update_up(heap, x, i);
-  }
 }
 
 double var_queue_get_activity(const var_queue_t* queue, variable_t x) {
