@@ -3324,6 +3324,133 @@ bool arith_poly_is_integer(const term_table_t *table, rba_buffer_t *b) {
 }
 
 
+/*******************************
+ *  STRINGS REGLANG TERMS      *
+ ******************************/
+
+term_t string_concat(term_table_t *table, term_t s, term_t t) {
+  return binary_term(table, STR_DOT_PLUSPLUS, string_type(table->types), s, t);
+}
+
+term_t string_length(term_table_t *table, term_t s) {
+  return unary_term(table, STR_DOT_LEN, int_type(table->types), s); 
+}
+
+term_t string_lt(term_table_t *table, term_t s, term_t t) {
+  return binary_term(table, STR_DOT_LT, bool_type(table->types), s, t);
+}
+
+term_t string_to_re(term_table_t *table, term_t s) {
+  return unary_term(table, STR_DOT_TO_RE, reglang_type(table->types), s);
+}
+
+term_t string_le(term_table_t *table, term_t s, term_t t) {
+  return binary_term(table, STR_DOT_LE, bool_type(table->types), s, t);
+}
+
+term_t string_substr(term_table_t *table, term_t s, term_t i, term_t n) {
+  // TODO
+}
+
+term_t string_prefixof(term_table_t *table, term_t s, term_t t) {
+  return binary_term(table, STR_DOT_PREFIXOF, bool_type(table->types), s, t);
+}
+
+term_t string_suffixof(term_table_t *table, term_t s, term_t t) {
+  return binary_term(table, STR_DOT_SUFFIXOF, bool_type(table->types), s, t);
+}
+
+term_t string_contains(term_table_t *table, term_t s, term_t t) {
+  return binary_term(table, STR_DOT_CONTAINS, bool_type(table->types), s, t);
+}
+
+term_t string_indexof(term_table_t *table, term_t s, term_t t, term_t i) {
+  // TODO
+}
+
+term_t string_replace(term_table_t *table, term_t s, term_t t, term_t tt) {
+  // TODO
+}
+
+term_t string_replace_all(term_table_t *table, term_t s, term_t t, term_t tt) {
+  // TODO
+}
+
+term_t string_replace_re(term_table_t *table, term_t s, term_t r, term_t t) {
+  // TODO
+}
+
+term_t string_replace_re_all(term_table_t *table, term_t s, term_t r, term_t t) {
+  // TODO
+}
+
+term_t string_is_digit(term_table_t *table, term_t s) {
+  return unary_term(table, STR_DOT_IS_DIGIT, bool_type(table->types), s);
+}
+
+term_t string_to_code(term_table_t *table, term_t s) {
+  return unary_term(table, STR_DOT_TO_CODE, int_type(table->types), s);
+}
+
+term_t string_from_code(term_table_t *table, term_t n) {
+  return unary_term(table, STR_DOT_FROM_CODE, string_type(table->types), n);
+}
+
+term_t string_to_int(term_table_t *table, term_t s) {
+  return unary_term(table, STR_DOT_TO_INT, int_type(table->types), s);
+}
+
+term_t string_from_int(term_table_t *table, term_t n) {
+  return unary_term(table, STR_DOT_TO_CODE, string_type(table->types), n);
+}
+
+term_t reglang_constant_none(term_table_t *table) {
+  return re_none_term;
+}
+
+term_t reglang_constant_all(term_table_t *table) {
+  return re_all_term;
+}
+
+term_t reglang_constant_allchar(term_table_t *table) {
+  return re_allchar_term;
+}
+
+term_t reglang_concat(term_table_t *table, term_t r, term_t q) {
+  return binary_term(table, RE_DOT_PLUSPLUS, reglang_type(table->types), r, q);
+}
+
+term_t reglang_union(term_table_t *table, term_t r, term_t q) {
+  return binary_term(table, RE_DOT_UNION, reglang_type(table->types), r, q);
+}
+
+term_t reglang_intersection(term_table_t *table, term_t r, term_t q) {
+  return binary_term(table, RE_DOT_INTER, reglang_type(table->types), r, q);
+}
+
+term_t reglang_kleene_op(term_table_t *table, term_t r) {
+  return unary_term(table, RE_DOT_STAR, reglang_type(table->types), r);
+}
+
+term_t reglang_complement(term_table_t *table, term_t r) {
+  return unary_term(table, RE_DOT_COMP, reglang_type(table->types), r);
+}
+
+term_t reglang_difference(term_table_t *table, term_t r, term_t q) {
+  return binary_term(table, RE_DOT_DIFF, reglang_type(table->types), r, q);
+}
+
+term_t reglang_kleene_cross(term_table_t *table, term_t r) {
+  return unary_term(table, RE_DOT_PLUS, reglang_type(table->types), r);
+}
+
+term_t reglang_kleene_option(term_table_t *table, term_t r) {
+  return unary_term(table, RE_DOT_OPT, reglang_type(table->types), r);
+}
+
+term_t reglang_range(term_table_t *table, term_t s, term_t t) {
+  return binary_term(table, RE_DOT_RANGE, reglang_type(table->types), s, t);
+}
 
 /*******************************
  *  CHECKS ON ATOMS/LITERALS   *

@@ -96,6 +96,7 @@ typedef enum {
   INT_TYPE,
   REAL_TYPE,
   STRING_TYPE,
+  REGLANG_TYPE,
   BITVECTOR_TYPE,
   SCALAR_TYPE,
   UNINTERPRETED_TYPE,
@@ -115,6 +116,7 @@ enum {
   int_id = 1,
   real_id = 2,
   string_id = 3,
+  reglang_id = 4,
 };
 
 
@@ -490,6 +492,11 @@ static inline type_t string_type(type_table_t *table) {
   return string_id;
 }
 
+static inline type_t reglang_type(type_table_t *table) {
+  assert(type_kind(table, reglang_id) == REGLANG_TYPE);
+  return reglang_id;
+}
+
 /*
  * Bitvector types
  * This requires 0 < size <= YICES_MAX_BVSIZE
@@ -767,6 +774,10 @@ static inline bool is_arithmetic_type(type_t i) {
 
 static inline bool is_string_type(type_t i) {
   return i == string_id;
+}
+
+static inline bool is_reglang_type(type_t i) {
+  return i == reglang_id;
 }
 
 /*
@@ -1143,7 +1154,7 @@ extern type_t apply_type_matching(type_matcher_t *matcher, type_t tau);
  * - type_table_gc marks every type reachable from a set of
  *   root types, then deletes every type that's not marked.
  * The root types include:
- * - the four predefined types: bool, int, real and string
+ * - the five predefined types: bool, int, real, string and reglang
  * - all types that are explicitly marked as roots (using call to set_gc_mark).
  * - if flag keep_named is true, every type that's present in the symbol table
  * At the end of type_table_gc, all marks are cleared.

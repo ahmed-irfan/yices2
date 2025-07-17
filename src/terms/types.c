@@ -267,6 +267,7 @@ static void erase_type(type_table_t *table, type_t i) {
   case INT_TYPE:
   case REAL_TYPE:
   case STRING_TYPE:
+  case REGLANG_TYPE:
     return; // never delete predefined types
 
   case BITVECTOR_TYPE:
@@ -491,7 +492,7 @@ static inline uint32_t depth_instance_type(type_table_t *table, uint32_t n, cons
  */
 
 /*
- * Add the four predefined types
+ * Add the five predefined types
  */
 static void add_primitive_types(type_table_t *table) {
   type_t i;
@@ -515,6 +516,11 @@ static void add_primitive_types(type_table_t *table) {
 		       INFINITE_TYPE_FLAGS | TYPE_IS_MAXIMAL_MASK);
   type_desc(table, i)->ptr = NULL;
   assert(i == string_id);
+
+  i = allocate_type_id(table, REGLANG_TYPE, /*card=*/UINT32_MAX, /*depth=*/0,
+		       INFINITE_TYPE_FLAGS | TYPE_IS_MAXIMAL_MASK);
+  type_desc(table, i)->ptr = NULL;
+  assert(i == reglang_id);
 }
 
 
@@ -1659,6 +1665,7 @@ bool type_matcher_add_constraint(type_matcher_t *matcher, type_t tau, type_t sig
   case BOOL_TYPE:
   case INT_TYPE:
   case STRING_TYPE:
+  case REGLANG_TYPE:
   case BITVECTOR_TYPE:
   case SCALAR_TYPE:
   case UNINTERPRETED_TYPE:
@@ -2881,11 +2888,12 @@ void type_table_gc(type_table_t *table, bool keep_named)  {
     stbl_iterate(&table->stbl, table, mark_symbol);
   }
 
-  // mark the four predefined types
+  // mark the five predefined types
   type_table_set_gc_mark(table, bool_id);
   type_table_set_gc_mark(table, int_id);
   type_table_set_gc_mark(table, real_id);
   type_table_set_gc_mark(table, string_id);
+  type_table_set_gc_mark(table, reglang_id);
 
   // propagate the marks
   mark_live_types(table);

@@ -5403,6 +5403,74 @@ static void eval_mk_divides(tstack_t *stack, stack_elem_t *f, uint32_t n) {
 
 
 
+/*
+ * [mk-string-const <value> ]
+ */
+static void check_mk_string_const(tstack_t *stack, stack_elem_t *f, uint32_t n) {
+  check_op(stack, MK_STRING_CONST);
+  check_size(stack, n == 1);
+}
+
+static void eval_mk_string_const(tstack_t *stack, stack_elem_t *f, uint32_t n) {
+  term_t t;
+  
+  t = get_term(stack, f);
+  check_term(stack, t);
+
+  tstack_pop_frame(stack);
+  set_term_result(stack, t);
+}
+
+/*
+ * [mk-string-concat <string> <string> ]
+ */
+static void check_mk_string_concat(tstack_t *stack, stack_elem_t *f, uint32_t n) {
+  check_op(stack, MK_STRING_CONST);
+  check_size(stack, n >= 2);
+}
+
+static void eval_mk_string_concat(tstack_t *stack, stack_elem_t *f, uint32_t n) {
+  term_t t1, t2;
+
+  t1 = get_term(stack, f);
+  t2 = get_term(stack, f+1);
+  t1 = _o_yices_divides_atom(t1, t2);
+  check_term(stack, t1);
+
+  tstack_pop_frame(stack);
+  set_term_result(stack, t1);
+}
+  check_mk_string_len,
+  check_mk_string_lt,
+  check_mk_string_to_re,
+  check_mk_string_in_re,
+  check_mk_string_le,
+  check_mk_string_at,
+  check_mk_string_substr,
+  check_mk_string_prefixof,
+  check_mk_string_suffixof,
+  check_mk_string_contains,
+  check_mk_string_indexof,
+  check_mk_string_replace,
+  check_mk_string_replaceall,
+  check_mk_string_replace_re,
+  check_mk_string_replace_re_all,
+  check_mk_string_is_digit,
+  check_mk_string_to_code,
+  check_mk_string_from_code,
+  check_mk_string_to_int,
+  check_mk_string_from_int,
+  check_mk_reglang_concat,
+  check_mk_reglang_union,
+  check_mk_reglang_inter,
+  check_mk_reglang_kleene,
+  check_mk_reglang_comp,
+  check_mk_reglang_diff,
+  check_mk_kleene_cross,
+  check_mk_reglang_opt,
+  check_mk_reglang_range,
+
+
 
 
 
@@ -5605,6 +5673,37 @@ static const uint8_t assoc[NUM_BASE_OPCODES] = {
   0, // MK_MOD
   0, // MK_DIVIDES
   0, // MK_IS_INT
+  0, // MK_STRING_CONST,
+  1, // MK_STRING_CONCAT,
+  0, // MK_STRING_LEN,
+  0, // MK_STRING_LT,
+  0, // MK_STRING_TO_RE,
+  0, // MK_STRING_IN_RE,
+  0, // MK_STRING_LE,
+  0, // MK_STRING_AT,
+  0, // MK_STRING_SUBSTR,
+  0, // MK_STRING_PREFIXOF,
+  0, // MK_STRING_SUFFIXOF,
+  0, // MK_STRING_CONTAINS,
+  0, // MK_STRING_INDEXOF,
+  0, // MK_STRING_REPLACE,
+  0, // MK_STRING_REPLACEALL,
+  0, // MK_STRING_REPLACE_RE,
+  0, // MK_STRING_REPLACE_RE_ALL,
+  0, // MK_STRING_IS_DIGIT,
+  0, // MK_STRING_TO_CODE,
+  0, // MK_STRING_FROM_CODE,
+  0, // MK_STRING_TO_INT,
+  0, // MK_STRING_FROM_INT,
+  1, // MK_REGLANG_CONCAT,
+  1, // MK_REGLANG_UNION,
+  1, // MK_REGLANG_INTER,
+  0, // MK_REGLANG_KLEENE,
+  0, // MK_REGLANG_COMP,
+  1, // MK_REGLANG_DIFF,
+  0, // MK_REGLANG_KLEENE_CROSS,
+  0, // MK_REGLANG_OPT,
+  0, // MK_REGLANG_RANGE,
   0, // BUILD_TERM
   0, // BUILD_TYPE
 };
@@ -5703,6 +5802,37 @@ static const check_fun_t check[NUM_BASE_OPCODES] = {
   check_mk_mod,
   check_mk_divides,
   check_mk_is_int,
+  check_mk_string_const,
+  check_mk_string_concat,
+  check_mk_string_len,
+  check_mk_string_lt,
+  check_mk_string_to_re,
+  check_mk_string_in_re,
+  check_mk_string_le,
+  check_mk_string_at,
+  check_mk_string_substr,
+  check_mk_string_prefixof,
+  check_mk_string_suffixof,
+  check_mk_string_contains,
+  check_mk_string_indexof,
+  check_mk_string_replace,
+  check_mk_string_replaceall,
+  check_mk_string_replace_re,
+  check_mk_string_replace_re_all,
+  check_mk_string_is_digit,
+  check_mk_string_to_code,
+  check_mk_string_from_code,
+  check_mk_string_to_int,
+  check_mk_string_from_int,
+  check_mk_reglang_concat,
+  check_mk_reglang_union,
+  check_mk_reglang_inter,
+  check_mk_reglang_kleene,
+  check_mk_reglang_comp,
+  check_mk_reglang_diff,
+  check_mk_kleene_cross,
+  check_mk_reglang_opt,
+  check_mk_reglang_range,
   check_build_term,
   check_build_type,
 };
@@ -5801,6 +5931,37 @@ static const eval_fun_t eval[NUM_BASE_OPCODES] = {
   eval_mk_mod,
   eval_mk_divides,
   eval_mk_is_int,
+  eval_mk_string_const,
+  eval_mk_string_concat,
+  eval_mk_string_len,
+  eval_mk_string_lt,
+  eval_mk_string_to_re,
+  eval_mk_string_in_re,
+  eval_mk_string_le,
+  eval_mk_string_at,
+  eval_mk_string_substr,
+  eval_mk_string_prefixof,
+  eval_mk_string_suffixof,
+  eval_mk_string_contains,
+  eval_mk_string_indexof,
+  eval_mk_string_replace,
+  eval_mk_string_replaceall,
+  eval_mk_string_replace_re,
+  eval_mk_string_replace_re_all,
+  eval_mk_string_is_digit,
+  eval_mk_string_to_code,
+  eval_mk_string_from_code,
+  eval_mk_string_to_int,
+  eval_mk_string_from_int,
+  eval_mk_reglang_concat,
+  eval_mk_reglang_union,
+  eval_mk_reglang_inter,
+  eval_mk_reglang_kleene,
+  eval_mk_reglang_comp,
+  eval_mk_reglang_diff,
+  eval_mk_kleene_cross,
+  eval_mk_reglang_opt,
+  eval_mk_reglang_range,
   eval_build_term,
   eval_build_type,
 };

@@ -51,6 +51,8 @@ extern type_t _o_yices_real_type(void);
 
 extern type_t _o_yices_string_type(void);
 
+extern type_t _o_yices_reglang_type(void);
+
 extern type_t _o_yices_bv_type(uint32_t size);
 
 extern type_t _o_yices_new_uninterpreted_type(void);

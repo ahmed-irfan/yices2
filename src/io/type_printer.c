@@ -42,7 +42,7 @@ static const char * const type2string[] = {
 void print_type_id(FILE *f, type_t tau) {
   assert(0 <= tau);
 
-  if (tau <= string_id) {
+  if (tau <= reglang_id) {
     fputs(type2string[tau], f);
   } else {
     fprintf(f, "tau!%"PRId32, tau);
@@ -70,7 +70,7 @@ void print_type_name(FILE *f, type_table_t *tbl, type_t tau) {
 
   assert(good_type(tbl, tau));
 
-  if (tau <= string_id) {
+  if (tau <= reglang_id) {
     fputs(type2string[tau], f);
   } else {
     name = type_name(tbl, tau);
@@ -92,7 +92,7 @@ static void print_type_recur(FILE *f, type_table_t *tbl, type_t tau, int32_t lev
 
   assert(good_type(tbl, tau));
 
-  if (tau <= string_id) {
+  if (tau <= reglang_id) {
     fputs(type2string[tau], f);
   } else {
     name = type_name(tbl, tau);
@@ -328,6 +328,7 @@ void print_type_table(FILE *f, type_table_t *tbl) {
       case INT_TYPE:
       case REAL_TYPE:
       case STRING_TYPE:
+      case REGLANG_TYPE:
         fputs(type2string[i], f);
         fputc('\n', f);
         break;
@@ -412,7 +413,7 @@ void pp_type_name(yices_pp_t *printer, type_table_t *tbl, type_t tau) {
 
   assert(good_type(tbl, tau));
 
-  if (tau <= string_id) {
+  if (tau <= reglang_id) {
     name = (char*) type2string[tau];
   } else {
     name = type_name(tbl, tau);
@@ -434,7 +435,7 @@ static void pp_type_recur(yices_pp_t *printer, type_table_t *tbl, type_t tau, in
 
   assert(good_type(tbl, tau));
 
-  if (tau <= string_id) {
+  if (tau <= reglang_id) {
     pp_string(printer, (char *) type2string[tau]);
   } else {
     name = type_name(tbl, tau);

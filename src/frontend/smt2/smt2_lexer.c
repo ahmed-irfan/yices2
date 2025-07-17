@@ -209,6 +209,40 @@ static const char * const smt2_symbol_string[NUM_SMT2_SYMBOLS] = {
   "bvsgt",                   // SMT2_SYM_BVSGT
   "bvsge",                   // SMT2_SYM_BVSGE
   "String",                  // SMT2_SYM_STRING
+  "RegLang",                 // SMT2_SYM_REGLANG
+  "str.++",                  // SMT2_SYM_STR_DOT_PLUSPLUS
+  "str.len",                 // SMT2_SYM_STR_DOT_LEN
+  "str.<",                   // SMT2_SYM_STR_DOT_LT
+  "str.to_re",               // SMT2_SYM_STR_DOT_TO_RE
+  "str.in_re",               // SMT2_SYM_STR_DOT_IN_RE
+  "re.none",                 // SMT2_SYM_RE_DOT_NONE
+  "re.all",                  // SMT2_SYM_RE_DOT_ALL
+  "re.allchar",              // SMT2_SYM_RE_DOT_ALLCHAR
+  "re.++",                   // SMT2_SYM_RE_DOT_PLUSPLUS
+  "re.union",                // SMT2_SYM_RE_DOT_UNION
+  "re.inter",                // SMT2_SYM_RE_DOT_INTER
+  "re.*",                    // SMT2_SYM_RE_DOT_STAR
+  "str.<=",                  // SMT2_SYM_STR_DOT_LE
+  "str.at",                  // SMT2_SYM_STR_DOT_AT
+  "str.substr",              // SMT2_SYM_STR_DOT_SUBSTR
+  "str.prefixof",            // SMT2_SYM_STR_DOT_PREFIXOF
+  "str.suffixof",            // SMT2_SYM_STR_DOT_SUFFIXOF
+  "str.contains",            // SMT2_SYM_STR_DOT_CONTAINS
+  "str.indexof",             // SMT2_SYM_STR_DOT_INDEXOF
+  "str.replace",             // SMT2_SYM_STR_DOT_REPLACE
+  "str.replace_all",         // SMT2_SYM_STR_DOT_REPLACE_ALL
+  "str.replace_re",          // SMT2_SYM_STR_DOT_REPLACE_RE
+  "str.replace_re_all",      // SMT2_SYM_STR_DOT_REPLACE_RE_ALL
+  "re.comp",                 // SMT2_SYM_RE_DOT_COMP
+  "re.diff",                 // SMT2_SYM_RE_DOT_DIFF
+  "re.+",                    // SMT2_SYM_RE_DOT_PLUS
+  "re.opt",                  // SMT2_SYM_RE_DOT_OPT
+  "re.range",                // SMT2_SYM_RE_DOT_RANGE
+  "str.is_digit",            // SMT2_SYM_STR_DOT_IS_DIGIT
+  "str.to_code",             // SMT2_SYM_STR_DOT_TO_CODE
+  "str.from_code",           // SMT2_SYM_STR_DOT_FROM_CODE
+  "str.to_int",              // SMT2_SYM_STR_DOT_TO_INT
+  "str.from_int",            // SMT2_SYM_STR_DOT_FROM_INT
 
   // errors
   "<invalid-bv-constant>",   // SMT2_SYM_INVALID_BV_CONSTANT,
@@ -355,6 +389,40 @@ static void smt2_activate_mixed_arith(void) {
  */
 static void smt2_activate_string(void) {
   active_symbol[SMT2_SYM_STRING] = true;
+  active_symbol[SMT2_SYM_REGLANG] = true;
+  active_symbol[SMT2_SYM_STR_DOT_PLUSPLUS] = true;
+  active_symbol[SMT2_SYM_STR_DOT_LEN] = true;
+  active_symbol[SMT2_SYM_STR_DOT_LT] = true;
+  active_symbol[SMT2_SYM_STR_DOT_TO_RE] = true; 
+  active_symbol[SMT2_SYM_STR_DOT_IN_RE] = true;
+  active_symbol[SMT2_SYM_RE_DOT_NONE] = true;
+  active_symbol[SMT2_SYM_RE_DOT_ALL] = true;
+  active_symbol[SMT2_SYM_RE_DOT_ALLCHAR] = true;
+  active_symbol[SMT2_SYM_RE_DOT_PLUSPLUS] = true;
+  active_symbol[SMT2_SYM_RE_DOT_UNION] = true;
+  active_symbol[SMT2_SYM_RE_DOT_INTER] = true;
+  active_symbol[SMT2_SYM_RE_DOT_STAR] = true;
+  active_symbol[SMT2_SYM_STR_DOT_LE] = true;
+  active_symbol[SMT2_SYM_STR_DOT_AT] = true;
+  active_symbol[SMT2_SYM_STR_DOT_SUBSTR] = true;
+  active_symbol[SMT2_SYM_STR_DOT_PREFIXOF] = true;
+  active_symbol[SMT2_SYM_STR_DOT_SUFFIXOF] = true;
+  active_symbol[SMT2_SYM_STR_DOT_CONTAINS] = true;
+  active_symbol[SMT2_SYM_STR_DOT_INDEXOF] = true;
+  active_symbol[SMT2_SYM_STR_DOT_REPLACE] = true;
+  active_symbol[SMT2_SYM_STR_DOT_REPLACE_ALL] = true;
+  active_symbol[SMT2_SYM_STR_DOT_REPLACE_RE] = true;
+  active_symbol[SMT2_SYM_STR_DOT_REPLACE_RE_ALL] = true;
+  active_symbol[SMT2_SYM_RE_DOT_COMP] = true;
+  active_symbol[SMT2_SYM_RE_DOT_DIFF] = true;
+  active_symbol[SMT2_SYM_RE_DOT_PLUS] = true;
+  active_symbol[SMT2_SYM_RE_DOT_OPT] = true;
+  active_symbol[SMT2_SYM_RE_DOT_RANGE] = true;
+  active_symbol[SMT2_SYM_STR_DOT_IS_DIGIT] = true;
+  active_symbol[SMT2_SYM_STR_DOT_TO_CODE] = true;
+  active_symbol[SMT2_SYM_STR_DOT_FROM_CODE] = true;
+  active_symbol[SMT2_SYM_STR_DOT_TO_INT] = true;
+  active_symbol[SMT2_SYM_STR_DOT_FROM_INT] = true;
 }
 
 /*

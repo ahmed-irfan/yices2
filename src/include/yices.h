@@ -342,6 +342,7 @@ __YICES_DLLSPEC__ extern type_t yices_bool_type(void);
 __YICES_DLLSPEC__ extern type_t yices_int_type(void);
 __YICES_DLLSPEC__ extern type_t yices_real_type(void);
 __YICES_DLLSPEC__ extern type_t yices_string_type(void);
+__YICES_DLLSPEC__ extern type_t yices_reglang_type(void);
 
 
 /*

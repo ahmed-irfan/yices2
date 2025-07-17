@@ -500,6 +500,44 @@ enum base_opcodes {
   MK_DIVIDES,         // [mk-divides <arith> <arith> ]
   MK_IS_INT,          // [mk-is-int <arith> ]
 
+  // Strings
+  MK_STRING_CONST,      // [mk-string-const <value>]
+  MK_STRING_CONCAT,     // [mk-string-concat <string> <string>]
+  MK_STRING_LEN,        // [mk-string-len <string>]
+  MK_STRING_LT,         // [mk-string-lt <string>]
+  MK_STRING_TO_RE,      // [mk-string-to-re <string>]
+  MK_STRING_IN_RE,      // [mk-string-in-re <string> <reglang>]
+  
+  MK_STRING_LE,             // [mk-string-le <string> <string>]
+  MK_STRING_AT,             // [mk-string-at <string> <arith>]
+  MK_STRING_SUBSTR,         // [mk-string-substr <string> <arith> <arith>]
+  MK_STRING_PREFIXOF,       // [mk-string-prefixof <string> <string>]
+  MK_STRING_SUFFIXOF,       // [mk-string-suffixof <string> <string>]
+  MK_STRING_CONTAINS,       // [mk-string-contains <string> <string>]
+  MK_STRING_INDEXOF,        // [mk-string-indexof <string> <string> <arith>]
+  MK_STRING_REPLACE,        // [mk-string-replace <string> <string> <string>]
+  MK_STRING_REPLACEALL,     // [mk-string-replaceall <string> <string> <string>]
+  MK_STRING_REPLACE_RE,     // [mk-string-replace-re <string> <string> <string>]
+  MK_STRING_REPLACE_RE_ALL, // [mk-string-replace-re-all <string> <string> <string>]
+  
+  MK_STRING_IS_DIGIT,      // [mk-string-is-digit <string>]
+  MK_STRING_TO_CODE,       // [mk-string-to-code <string>]
+  MK_STRING_FROM_CODE,     // [mk-string-from-code <arith>]
+  MK_STRING_TO_INT,        // [mk-string-to-int <string>]
+  MK_STRING_FROM_INT,      // [mk-string-from-int <arith>]
+
+  // Regular Expresssions
+  MK_REGLANG_CONCAT,       // [mk-reglang-concat <reglang> <reglang>]
+  MK_REGLANG_UNION,        // [mk-reglang-union <reglang> <reglang>]
+  MK_REGLANG_INTER,        // [mk-reglang-inter <reglang> <reglang>]
+  MK_REGLANG_KLEENE,       // [mk-reglang-kleene <reglang>]
+  
+  MK_REGLANG_COMP,         // [mk-reglang-comp <reglang>]
+  MK_REGLANG_DIFF,         // [mk-reglang-diff <reglang> <reglang>]
+  MK_REGLANG_KLEENE_CROSS, // [mk-reglang-kleene-corss <reglang>]
+  MK_REGLANG_OPT,          // [mk-reglang-opt <reglang>]
+  MK_REGLANG_RANGE,        // [mk-reglang-range <reglang> <reglang>]
+
   // collect result
   BUILD_TERM,         // [build-term <term> ]
   BUILD_TYPE,         // [build-type <type> ]

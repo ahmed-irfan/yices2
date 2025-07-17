@@ -307,6 +307,42 @@ typedef enum {
   ARITH_POLY,       // polynomial with rational coefficients
   BV64_POLY,        // polynomial with 64bit coefficients
   BV_POLY,          // polynomial with generic bitvector coefficients
+
+  // Strings
+  STR_DOT_PLUSPLUS,        // string concatenation
+  STR_DOT_LEN,             // string length
+  STR_DOT_LT,              // string lexicographic ordering
+  STR_DOT_TO_RE,           // string to regular expression (RE) injection
+  STR_DOT_IN_RE,           // RE membership
+  STR_DOT_LE,              // reflexive closure of lexicographic ordering
+  STR_DOT_AT,              // singleton string containing a character at given position or empty string when position is out of range; the leftmost position is zero
+  STR_DOT_SUBSTR,          // substring
+  STR_DOT_PREFIXOF,        // first string is a prefix of second one (str.prefixof s t)
+  STR_DOT_SUFFIXOF,        // first string is a suffix of second one (str.suffixof s t)
+  STR_DOT_CONTAINS,        // first string contains second one
+  STR_DOT_INDEXOF,         // index of first occurrence of second string in first one starting at the position specified by the third arugment
+  STR_DOT_REPLACE,         // replace; (str.replace s t t') is the string obtained by replacing the first occurrence of t in s, if any, by t'
+  STR_DOT_REPLACE_ALL,     // (str.replace_all s t t') is s if t is the empty string. Otherwise, it is the string obtained from s by replacing all occurrences of t in s by t'; left-to-right order
+  STR_DOT_REPLACE_RE,      // (str.replace_re s r t) is the string obtained by replacing the shortest leftmost match of r in s, if any, by t; note that if the language of r contains the empty string, the result is to prepend t to s
+  STR_DOT_REPLACE_RE_ALL,  // (str.replace_re_all s r t) is the string obtained by replacing, left-to right, each shortest non-empty match of r in s by t
+  STR_DOT_IS_DIGIT,        // (str.is_digit s) is true iff s consists of a single character which is a decimal digit, that is, a code point in the range 0x0030 ... 0x0039
+  STR_DOT_TO_CODE,         // (str.to_code s) is the code point of the only character of s, if s is a singleton string; otherwise, it is -1
+  STR_DOT_FROM_CODE,       // (str.from_code n) is the singleton string whose only character is code point n if n is in the range [0, 196607]; otherwise, it is the empty string
+  STR_DOT_TO_INT,          // (str.to_int s) with s consisting of digits (in the sense of str.is_digit) evaluates to the positive integer denoted by s when seen as a number in base 10 (possibly with leading zeros)
+  STR_DOT_FROM_INT,        // (str.from_int n) with n non-negative is the corresponding string in decimal notation, with no leading zeros. If n < 0, it is the empty string
+  RE_DOT_NONE,             // Constant denoting the empty set of strings
+  RE_DOT_ALL,              // Constant denoting the set of all strings
+  RE_DOT_ALLCHAR,          // Constant denoting the set of all strings of length 1
+  RE_DOT_PLUSPLUS,         // RE concatenation
+  RE_DOT_UNION,            // RE union
+  RE_DOT_INTER,            // RE intersection
+  RE_DOT_STAR,             // Kleene Closure
+  RE_DOT_COMP,             // RE complement
+  RE_DOT_DIFF,             // RE difference
+  RE_DOT_PLUS,             // RE Kleene cross: (re.+ e) abbreviates (re.++ e (re.* e))
+  RE_DOT_OPT,              // RE option: (re.opt e) abbreviates (re.union e (str.to_re ""))
+  RE_DOT_RANGE,            // RE range: (re.range s₁ s₂) is the set of all *singleton* strings s such that (str.<= s₁ s s₂) provided s₁ and s₂ are singleton. Otherwise, it is the empty language
+  
 } term_kind_t;
 
 #define NUM_TERM_KINDS (BV_POLY+1)
@@ -338,6 +374,9 @@ enum {
   true_term = 2,
   false_term = 3,
   zero_term = 4,
+  re_none_term = 5,    // Constant denoting the empty set of strings
+  re_all_term = 6,     // Constant denoting the set of all strings
+  re_allchar_term =7,  // Constant denoting the set of all strings of length 1
 };
 
 
@@ -746,6 +785,40 @@ extern bool arith_poly_is_integer(const term_table_t *table, rba_buffer_t *b);
  */
 
 extern term_t string_constant(term_table_t *table, const char *s);
+
+extern term_t string_concat(term_table_t *table, term_t s, term_t t);
+extern term_t string_length(term_table_t *table, term_t s);
+extern term_t string_lt(term_table_t *table, term_t s, term_t t);
+extern term_t string_to_re(term_table_t *table, term_t s);
+extern term_t string_le(term_table_t *table, term_t s, term_t t);
+extern term_t string_substr(term_table_t *table, term_t s, term_t i, term_t n);
+extern term_t string_prefixof(term_table_t *table, term_t s, term_t t); // true iff s is a prefix of t
+extern term_t string_suffixof(term_table_t *table, term_t s, term_t t); // true iff s is a suffix of t
+extern term_t string_contains(term_table_t *table, term_t s, term_t t); // true iff s contains t
+extern term_t string_indexof(term_table_t *table, term_t s, term_t t, term_t i);
+extern term_t string_replace(term_table_t *table, term_t s, term_t t, term_t tt);
+extern term_t string_replace_all(term_table_t *table, term_t s, term_t t, term_t tt);
+extern term_t string_replace_re(term_table_t *table, term_t s, term_t r, term_t t);
+extern term_t string_replace_re_all(term_table_t *table, term_t s, term_t r, term_t t);
+extern term_t string_is_digit(term_table_t *table, term_t s);
+extern term_t string_to_code(term_table_t *table, term_t s);
+extern term_t string_from_code(term_table_t *table, term_t n);
+extern term_t string_to_int(term_table_t *table, term_t s);
+extern term_t string_from_int(term_table_t *table, term_t n);
+
+extern term_t reglang_constant_none(term_table_t *table);
+extern term_t reglang_constant_all(term_table_t *table);
+extern term_t reglang_constant_allchar(term_table_t *table);
+extern term_t reglang_concat(term_table_t *table, term_t r, term_t q);
+extern term_t reglang_union(term_table_t *table, term_t r, term_t q);
+extern term_t reglang_intersection(term_table_t *table, term_t r, term_t q);
+extern term_t reglang_kleene_op(term_table_t *table, term_t r);
+extern term_t reglang_complement(term_table_t *table, term_t r);
+extern term_t reglang_difference(term_table_t *table, term_t r, term_t q);
+extern term_t reglang_kleene_cross(term_table_t *table, term_t r);
+extern term_t reglang_kleene_option(term_table_t *table, term_t r);
+extern term_t reglang_range(term_table_t *table, term_t s, term_t t);
+
 
 /*
  * BITVECTOR TERMS

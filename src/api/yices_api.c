@@ -2837,6 +2837,14 @@ type_t _o_yices_string_type(void) {
   return string_type(__yices_globals.types);
 }
 
+EXPORTED type_t yices_reglang_type(void) {
+  MT_PROTECT(type_t, __yices_globals.lock, _o_yices_reglang_type());
+}
+
+type_t _o_yices_reglang_type(void) {
+  return reglang_type(__yices_globals.types);
+}
+
 EXPORTED type_t yices_bv_type(uint32_t size) {
   MT_PROTECT(type_t, __yices_globals.lock, _o_yices_bv_type(size));
 }
